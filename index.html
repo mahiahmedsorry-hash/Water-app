@@ -111,6 +111,7 @@
         let intervalMinutes = 60;
         let timerInterval = null;
 
+        // Load saved state from LocalStorage
         window.onload = function() {
             const savedState = localStorage.getItem('waterAppData');
             if (savedState) {
@@ -131,6 +132,7 @@
             }
             updateUI();
             
+            // Request Notification Permission
             if (Notification.permission !== "granted") {
                 Notification.requestPermission();
             }
@@ -149,17 +151,19 @@
 
         function toggleDay() {
             if (!isDayActive) {
+                // Start Day
                 isDayActive = true;
                 startTime = new Date();
                 targetMl = parseFloat(document.getElementById('targetGoal').value) * 1000;
                 endTimeStr = document.getElementById('endTimeInput').value;
-                currentDrankMl = 0;
+                currentDrankMl = 0; // New day reset
 
                 activateUIState();
                 calculateInterval();
                 startCountdownTimer();
                 showNotification("হাইড্রেশন শুরু হয়েছে!", "আজকের মতো পানি পানের রিমাইন্ডার চালু করা হলো।");
             } else {
+                // End Day
                 if(confirm("আজকের দিনের রিমাইন্ডার বন্ধ করতে চান?")) {
                     isDayActive = false;
                     clearInterval(timerInterval);
@@ -198,10 +202,11 @@
             endTime.setHours(endHour, endMinute, 0, 0);
 
             const totalMinutesRemaining = (endTime - now) / (1000 * 60);
+            
             let estimatedGlasses = Math.ceil(targetMl / 250); 
             if (totalMinutesRemaining > 60) {
                 intervalMinutes = Math.floor(totalMinutesRemaining / estimatedGlasses);
-                if(intervalMinutes < 30) intervalMinutes = 30;
+                if(intervalMinutes < 30) intervalMinutes = 30; // Minimum 30 mins gap
             } else {
                 intervalMinutes = 60;
             }
@@ -246,6 +251,7 @@
         function triggerReminder() {
             const audio = document.getElementById('alarmSound');
             audio.play().catch(e => console.log("Audio play blocked:", e));
+
             showNotification("পানি খাওয়ার সময় হয়েছে! 💧", "এক গ্লাস পানি পান করুন এবং শরীর সতেজ রাখুন।");
         }
 
@@ -260,3 +266,19 @@
     </script>
 </body>
 </html>
+cat << 'EOF' > manifest.json
+{
+  "name": "হাইড্রেশন প্রো",
+  "short_name": "HydrationPro",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#06b6d4",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3105/3105807.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
