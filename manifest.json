@@ -1,6 +1,6 @@
 {
-  "name": "হাইড্রেশন প্রো রিমাইন্ডার",
-  "short_name": "HydrationPro",
+  "name": "Aquaflow Water Reminder",
+  "short_name": "Aquaflow",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#030712",
