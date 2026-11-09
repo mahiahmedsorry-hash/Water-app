@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>হাইড্রেশন প্রো - পানি পানের রিমাইন্ডার</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- PWA Manifest Link -->
     <link rel="manifest" href="manifest.json">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
@@ -17,19 +14,13 @@
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-between p-4">
-
-    <!-- Header -->
     <header class="w-full max-w-md text-center py-4">
         <h1 class="text-2xl font-bold text-cyan-400 flex items-center justify-center gap-2">
             <i class="fa-solid fa-droplet text-cyan-500"></i> হাইড্রেশন প্রো
         </h1>
         <p class="text-xs text-slate-400">আপনার ব্যক্তিগত স্মার্ট ওয়াটার রিমাইন্ডার</p>
     </header>
-
-    <!-- Main Container -->
     <main class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl flex flex-col gap-6">
-
-        <!-- Master Switch Card -->
         <div class="bg-slate-800/60 p-4 rounded-2xl flex items-center justify-between border border-slate-700/50">
             <div>
                 <h2 id="dayStatusText" class="font-bold text-lg text-amber-400">দিন বন্ধ আছে</h2>
@@ -39,8 +30,6 @@
                 <i class="fa-solid fa-power-off"></i> <span id="btnText">শুরু করুন</span>
             </button>
         </div>
-
-        <!-- Settings & Goal Config (Active only when day is OFF) -->
         <div id="settingsBox" class="bg-slate-800/40 p-4 rounded-2xl flex flex-col gap-3 border border-slate-700/30">
             <div class="flex justify-between items-center">
                 <span class="text-sm text-slate-300">দৈনিক লক্ষ্য (লিটার):</span>
@@ -51,14 +40,9 @@
                 <input type="time" id="endTimeInput" value="22:00" class="bg-slate-900 border border-slate-700 px-3 py-1 rounded-lg text-cyan-400 font-bold text-sm focus:outline-none">
             </div>
         </div>
-
-        <!-- Dashboard / Body Map Section -->
         <div class="grid grid-cols-2 gap-4 items-center bg-slate-800/20 p-4 rounded-2xl border border-slate-800">
-            
-            <!-- Body Hydration Visualizer (Head to Toe) -->
             <div class="flex flex-col items-center justify-center relative">
                 <div class="w-28 h-44 bg-slate-800 rounded-2xl overflow-hidden relative border-2 border-cyan-500/40 shadow-inner flex flex-col justify-end">
-                    <!-- Water Level Fill -->
                     <div id="waterFill" class="w-full bg-gradient-to-t from-cyan-600 to-cyan-400 water-fill" style="height: 0%;"></div>
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-1 pointer-events-none">
                         <i class="fa-solid fa-child text-slate-300/80 text-4xl mb-1"></i>
@@ -67,113 +51,56 @@
                 </div>
                 <span class="text-[11px] text-slate-400 mt-2">মাথা থেকে পা হাইড্রেশন</span>
             </div>
-
-            <!-- Stats & Quick Add -->
             <div class="flex flex-col gap-3 justify-center">
                 <div class="bg-slate-800/80 p-3 rounded-xl text-center border border-slate-700">
                     আজ খাওয়া হয়েছে
                     <div class="text-xl font-bold text-cyan-400 mt-0.5"><span id="currentDrank">0</span> / <span id="totalTargetDisplay">3000</span> ml</div>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="addWater(250)" class="flex-1 bg-cyan-600/30 hover:bg-cyan-600/50 border border-cyan-500/40 py-2 rounded-xl text-xs font-bold text-cyan-300 transition-all">
-                        +২৫০ মিলি
-                    </button>
-                    <button onclick="addWater(500)" class="flex-1 bg-cyan-600/30 hover:bg-cyan-600/50 border border-cyan-500/40 py-2 rounded-xl text-xs font-bold text-cyan-300 transition-all">
-                        +৫০০ মিলি
-                    </button>
+                    <button onclick="addWater(250)" class="flex-1 bg-cyan-600/30 hover:bg-cyan-600/50 border border-cyan-500/40 py-2 rounded-xl text-xs font-bold text-cyan-300 transition-all">+২৫০ মিলি</button>
+                    <button onclick="addWater(500)" class="flex-1 bg-cyan-600/30 hover:bg-cyan-600/50 border border-cyan-500/40 py-2 rounded-xl text-xs font-bold text-cyan-300 transition-all">+৫০০ মিলি</button>
                 </div>
             </div>
         </div>
-
-        <!-- Next Reminder Timer -->
         <div id="timerCard" class="hidden bg-cyan-950/40 border border-cyan-500/30 p-3 rounded-xl text-center flex items-center justify-between px-4">
             <span class="text-xs text-slate-300"><i class="fa-regular fa-clock text-cyan-400 mr-1"></i> পরবর্তী রিমাইন্ডার:</span>
             <span id="countdownTimer" class="font-bold text-cyan-400 text-sm">--:--</span>
         </div>
-
     </main>
-
-    <!-- Footer -->
-    <footer class="w-full max-w-md text-center text-xs text-slate-500 py-4">
-        সুষম পানি পানে সুস্থ থাকুন &copy; ২০২৬
-    </footer>
-
-    <!-- Notification Sound (Audio element) -->
+    <footer class="w-full max-w-md text-center text-xs text-slate-500 py-4">সুষম পানি পানে সুস্থ থাকুন &copy; ২০২৬</footer>
     <audio id="alarmSound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
-
-    <!-- JavaScript Logic -->
     <script>
-        let isDayActive = false;
-        let targetMl = 3000;
-        let currentDrankMl = 0;
-        let startTime = null;
-        let endTimeStr = "22:00";
-        let intervalMinutes = 60;
-        let timerInterval = null;
-
-        // Load saved state from LocalStorage
+        let isDayActive = false, targetMl = 3000, currentDrankMl = 0, startTime = null, endTimeStr = "22:00", intervalMinutes = 60, timerInterval = null;
         window.onload = function() {
             const savedState = localStorage.getItem('waterAppData');
             if (savedState) {
                 const data = JSON.parse(savedState);
-                isDayActive = data.isDayActive;
-                targetMl = data.targetMl;
-                currentDrankMl = data.currentDrankMl;
-                startTime = data.startTime ? new Date(data.startTime) : null;
-                endTimeStr = data.endTimeStr;
-                
+                isDayActive = data.isDayActive; targetMl = data.targetMl; currentDrankMl = data.currentDrankMl;
+                startTime = data.startTime ? new Date(data.startTime) : null; endTimeStr = data.endTimeStr;
                 document.getElementById('targetGoal').value = (targetMl / 1000).toFixed(1);
                 document.getElementById('endTimeInput').value = endTimeStr;
-
-                if (isDayActive) {
-                    activateUIState();
-                    startCountdownTimer();
-                }
+                if (isDayActive) { activateUIState(); startCountdownTimer(); }
             }
             updateUI();
-            
-            // Request Notification Permission
-            if (Notification.permission !== "granted") {
-                Notification.requestPermission();
-            }
+            if (Notification.permission !== "granted") Notification.requestPermission();
         };
-
         function saveData() {
-            const data = {
-                isDayActive,
-                targetMl,
-                currentDrankMl,
-                startTime: startTime ? startTime.toISOString() : null,
-                endTimeStr
-            };
-            localStorage.setItem('waterAppData', JSON.stringify(data));
+            localStorage.setItem('waterAppData', JSON.stringify({ isDayActive, targetMl, currentDrankMl, startTime: startTime ? startTime.toISOString() : null, endTimeStr }));
         }
-
         function toggleDay() {
             if (!isDayActive) {
-                // Start Day
-                isDayActive = true;
-                startTime = new Date();
+                isDayActive = true; startTime = new Date();
                 targetMl = parseFloat(document.getElementById('targetGoal').value) * 1000;
-                endTimeStr = document.getElementById('endTimeInput').value;
-                currentDrankMl = 0; // New day reset
-
-                activateUIState();
-                calculateInterval();
-                startCountdownTimer();
+                endTimeStr = document.getElementById('endTimeInput').value; currentDrankMl = 0;
+                activateUIState(); calculateInterval(); startCountdownTimer();
                 showNotification("হাইড্রেশন শুরু হয়েছে!", "আজকের মতো পানি পানের রিমাইন্ডার চালু করা হলো।");
             } else {
-                // End Day
                 if(confirm("আজকের দিনের রিমাইন্ডার বন্ধ করতে চান?")) {
-                    isDayActive = false;
-                    clearInterval(timerInterval);
-                    deactivateUIState();
+                    isDayActive = false; clearInterval(timerInterval); deactivateUIState();
                 }
             }
-            saveData();
-            updateUI();
+            saveData(); updateUI();
         }
-
         function activateUIState() {
             document.getElementById('dayStatusText').innerText = "দিন চালু আছে (সক্রিয়)";
             document.getElementById('dayStatusText').className = "font-bold text-lg text-cyan-400";
@@ -183,7 +110,6 @@
             document.getElementById('settingsBox').classList.add('opacity-50', 'pointer-events-none');
             document.getElementById('timerCard').classList.remove('hidden');
         }
-
         function deactivateUIState() {
             document.getElementById('dayStatusText').innerText = "দিন বন্ধ আছে";
             document.getElementById('dayStatusText').className = "font-bold text-lg text-amber-400";
@@ -193,47 +119,32 @@
             document.getElementById('settingsBox').classList.remove('opacity-50', 'pointer-events-none');
             document.getElementById('timerCard').classList.add('hidden');
         }
-
         function calculateInterval() {
             if (!startTime) return;
-            const now = new Date();
-            const [endHour, endMinute] = endTimeStr.split(':').map(Number);
-            const endTime = new Date();
-            endTime.setHours(endHour, endMinute, 0, 0);
-
+            const now = new Date(), [endHour, endMinute] = endTimeStr.split(':').map(Number);
+            const endTime = new Date(); endTime.setHours(endHour, endMinute, 0, 0);
             const totalMinutesRemaining = (endTime - now) / (1000 * 60);
-            
-            let estimatedGlasses = Math.ceil(targetMl / 250); 
+            let estimatedGlasses = Math.ceil(targetMl / 250);
             if (totalMinutesRemaining > 60) {
                 intervalMinutes = Math.floor(totalMinutesRemaining / estimatedGlasses);
-                if(intervalMinutes < 30) intervalMinutes = 30; // Minimum 30 mins gap
-            } else {
-                intervalMinutes = 60;
-            }
+                if(intervalMinutes < 30) intervalMinutes = 30;
+            } else { intervalMinutes = 60; }
         }
-
         function addWater(amount) {
-            currentDrankMl += amount;
-            if (currentDrankMl > targetMl) currentDrankMl = targetMl;
-            saveData();
-            updateUI();
+            currentDrankMl += amount; if (currentDrankMl > targetMl) currentDrankMl = targetMl;
+            saveData(); updateUI();
         }
-
         function updateUI() {
             document.getElementById('totalTargetDisplay').innerText = targetMl;
             document.getElementById('currentDrank').innerText = currentDrankMl;
-
             let percentage = Math.min(Math.round((currentDrankMl / targetMl) * 100), 100);
             document.getElementById('waterFill').style.height = percentage + '%';
             document.getElementById('percentageText').innerText = percentage + '%';
         }
-
         let nextAlertTime = Date.now() + (60 * 1000);
-
         function startCountdownTimer() {
             clearInterval(timerInterval);
             nextAlertTime = Date.now() + (intervalMinutes * 60 * 1000);
-
             timerInterval = setInterval(() => {
                 const timeLeft = nextAlertTime - Date.now();
                 if (timeLeft <= 0) {
@@ -242,25 +153,17 @@
                 } else {
                     const mins = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
                     const secs = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                    document.getElementById('countdownTimer').innerText = 
-                        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                    document.getElementById('countdownTimer').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
                 }
             }, 1000);
         }
-
         function triggerReminder() {
-            const audio = document.getElementById('alarmSound');
-            audio.play().catch(e => console.log("Audio play blocked:", e));
-
+            document.getElementById('alarmSound').play().catch(e => console.log(e));
             showNotification("পানি খাওয়ার সময় হয়েছে! 💧", "এক গ্লাস পানি পান করুন এবং শরীর সতেজ রাখুন।");
         }
-
         function showNotification(title, body) {
             if (Notification.permission === "granted") {
-                new Notification(title, {
-                    body: body,
-                    icon: "https://cdn-icons-png.flaticon.com/512/3105/3105807.png"
-                });
+                new Notification(title, { body: body, icon: "https://cdn-icons-png.flaticon.com/512/3105/3105807.png" });
             }
         }
     </script>
